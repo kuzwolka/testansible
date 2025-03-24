@@ -16,5 +16,5 @@
       when: ansible_distribution == 'Ubuntu'
 
     - name: Ubuntu > uninstall nginx dependencies
-      service: "{{ ansible_pkg_mgr }} name=nginx purge=true  autoremove=yes"
+      service: "{{ ansible_pkg_mgr }} name=nginx state=absent purge=true autoremove=yes"
       when: ansible_distribution == 'Ubuntu'
