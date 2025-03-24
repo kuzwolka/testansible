@@ -1,0 +1,20 @@
+- name: httpd port quiz
+  hosts: all
+  become: true
+  vars_files:
+    vars.yml
+
+  tasks:
+    - name: httpd port check
+      lineinfile:
+        dest: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen [0-9]{1,5}$'
+        line: Listen {{ webport }}
+      notify:
+        - httpd restart
+
+  handlers:
+    - name: httpd restart
+      service:
+        name: httpd
+        state: restarted
